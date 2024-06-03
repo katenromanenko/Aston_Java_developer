@@ -1,8 +1,8 @@
 /**
- * MyArrayList is a dynamic array that simulates the behavior of java.util.ArrayList.
- * It supports generic types and provides methods for adding, removing, and accessing elements.
+ * MyArrayList представляет собой динамический массив, который имитирует поведение java.util.ArrayList.
+ * Он поддерживает обобщенные типы и предоставляет методы для добавления, удаления, доступа к элементам и определения размера.
  *
- * @param <E> the type of elements in this list
+ * @param <E> тип элементов в этом списке
  */
 public class MyArrayList<E> {
     private static final int DEFAULT_CAPACITY = 10;
@@ -10,17 +10,18 @@ public class MyArrayList<E> {
     private int size = 0;
 
     /**
-     * Constructs an empty list with an initial capacity of ten.
+     * Создает пустой список с начальной емкостью десять.
      */
+    @SuppressWarnings("unchecked") // Подавляем предупреждение, т.к. приведение типов безопасно в данном контексте
     public MyArrayList() {
-        elements = new Object[DEFAULT_CAPACITY];
+        elements = (E[]) new Object[DEFAULT_CAPACITY];
     }
 
     /**
-     * Appends the specified element to the end of this list.
+     * Добавляет указанный элемент в конец этого списка.
      *
-     * @param e element to be appended to this list
-     * @return true (as specified by Collection.add(E))
+     * @param e элемент, который нужно добавить в этот список
+     * @return true (как указано в Collection.add(E))
      */
     public boolean add(E e) {
         ensureCapacity(size + 1);
@@ -29,11 +30,11 @@ public class MyArrayList<E> {
     }
 
     /**
-     * Removes the element at the specified position in this list.
+     * Удаляет элемент в указанной позиции в этом списке.
      *
-     * @param index the index of the element to be removed
-     * @return the element that was removed from the list
-     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size)
+     * @param index индекс элемента, который нужно удалить
+     * @return элемент, который был удален из списка
+     * @throws IndexOutOfBoundsException если индекс выходит за пределы диапазона (index < 0 || index >= size)
      */
     public E remove(int index) {
         if (index >= size || index < 0) {
@@ -47,17 +48,17 @@ public class MyArrayList<E> {
                 elements[i] = elements[i + 1];
             }
         }
-        elements[--size] = null; // Clear to let GC do its work
+        elements[--size] = null; // Очистка для работы сборщика мусора
 
         return oldValue;
     }
 
     /**
-     * Returns the element at the specified position in this list.
+     * Возвращает элемент в указанной позиции в этом списке.
      *
-     * @param index index of the element to return
-     * @return the element at the specified position in this list
-     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size)
+     * @param index индекс элемента для возврата
+     * @return элемент в указанной позиции в этом списке
+     * @throws IndexOutOfBoundsException если индекс выходит за пределы диапазона (index < 0 || index >= size)
      */
     public E get(int index) {
         if (index >= size || index < 0) {
@@ -67,12 +68,12 @@ public class MyArrayList<E> {
     }
 
     /**
-     * Replaces the element at the specified position in this list with the specified element.
+     * Заменяет элемент в указанной позиции в этом списке на указанный элемент.
      *
-     * @param index index of the element to replace
-     * @param element element to be stored at the specified position
-     * @return the element previously at the specified position
-     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size)
+     * @param index индекс элемента для замены
+     * @param element элемент, который нужно сохранить в указанной позиции
+     * @return элемент, ранее находившийся в указанной позиции
+     * @throws IndexOutOfBoundsException если индекс выходит за пределы диапазона (index < 0 || index >= size)
      */
     public E set(int index, E element) {
         if (index >= size || index < 0) {
@@ -84,24 +85,24 @@ public class MyArrayList<E> {
     }
 
     /**
-     * Returns the number of elements in this list.
+     * Возвращает количество элементов в этом списке.
      *
-     * @return the number of elements in this list
+     * @return количество элементов в этом списке
      */
     public int size() {
         return size;
     }
 
     /**
-     * Increases the capacity of this MyArrayList instance, if necessary, to ensure that it can hold
-     * at least the number of elements specified by the minimum capacity argument.
+     * Увеличивает емкость этого экземпляра MyArrayList, если это необходимо, чтобы обеспечить возможность
+     * хранения по крайней мере указанного количества элементов.
      *
-     * @param minCapacity the desired minimum capacity
+     * @param minCapacity желаемая минимальная емкость
      */
+    @SuppressWarnings("unchecked") // Подавляем предупреждение, т.к. приведение типов безопасно в данном контексте
     private void ensureCapacity(int minCapacity) {
-        int oldCapacity = elements.length;
-        if (minCapacity > oldCapacity) {
-            int newCapacity = oldCapacity + (oldCapacity >> 1);
+        if (minCapacity > elements.length) {
+            int newCapacity = elements.length + (elements.length >> 1);
             if (newCapacity < minCapacity) {
                 newCapacity = minCapacity;
             }
@@ -112,5 +113,38 @@ public class MyArrayList<E> {
             elements = newElements;
         }
     }
+    /**
+     * Переопределение метода toString для класса MyArrayList.
+     * Этот метод возвращает строковое представление списка, содержащего все элементы списка.
+     *
+     * @return строковое представление списка
+     */
+    @Override
+    public String toString() {
+        // Создаем объект StringBuilder для эффективного конструирования строки
+        StringBuilder sb = new StringBuilder();
+
+        // Добавляем открывающую скобку
+        sb.append("[");
+
+        // Проходим по всем элементам списка
+        for (int i = 0; i < size; i++) {
+            // Добавляем элемент в строку
+            sb.append(elements[i]);
+
+            // Если это не последний элемент, добавляем запятую и пробел
+            if (i < size - 1) {
+                sb.append(", ");
+            }
+        }
+
+        // Добавляем закрывающую скобку
+        sb.append("]");
+
+        // Возвращаем построенную строку
+        return sb.toString();
+    }
+
 }
+
 

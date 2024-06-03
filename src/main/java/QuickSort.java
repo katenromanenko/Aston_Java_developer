@@ -1,18 +1,16 @@
-
-
 import java.util.Comparator;
 
 /**
- * QuickSort provides a static method to sort a MyArrayList using the QuickSort algorithm.
+ * QuickSort предоставляет статический метод для сортировки MyArrayList с помощью алгоритма быстрой сортировки.
  */
 public class QuickSort {
 
     /**
-     * Sorts the specified list according to the order induced by the specified comparator using QuickSort algorithm.
+     * Сортирует указанный список в соответствии с порядком, заданным указанным компаратором, используя алгоритм быстрой сортировки.
      *
-     * @param list the list to be sorted
-     * @param comparator the comparator to determine the order of the list
-     * @param <E> the type of elements in the list
+     * @param list список, который нужно отсортировать
+     * @param comparator компаратор для определения порядка списка
+     * @param <E> тип элементов в списке
      */
     public static <E> void quickSort(MyArrayList<E> list, Comparator<? super E> comparator) {
         quickSort(list, 0, list.size() - 1, comparator);

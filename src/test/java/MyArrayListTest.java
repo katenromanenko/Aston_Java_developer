@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Comparator;
 
 /**
- * Unit tests for MyArrayList and QuickSort classes.
+ * Unit-тесты для классов MyArrayList и QuickSort.
  */
 public class MyArrayListTest {
     private MyArrayList<Integer> list;
@@ -59,4 +59,3 @@ public class MyArrayListTest {
         assertEquals(3, list.get(2));
     }
 }
-
