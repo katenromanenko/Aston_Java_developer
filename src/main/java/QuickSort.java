@@ -1,7 +1,7 @@
 import java.util.Comparator;
 
 /**
- * QuickSort предоставляет статический метод для сортировки MyArrayList с помощью алгоритма быстрой сортировки.
+ * QuickSort предоставляет статические методы для сортировки MyArrayList с помощью алгоритма быстрой сортировки.
  */
 public class QuickSort {
 
@@ -43,5 +43,4 @@ public class QuickSort {
         list.set(j, temp);
     }
 }
-
 

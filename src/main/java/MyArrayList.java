@@ -1,3 +1,4 @@
+import java.util.Comparator;
 /**
  * MyArrayList представляет собой динамический массив, который имитирует поведение java.util.ArrayList.
  * Он поддерживает обобщенные типы и предоставляет методы для добавления, удаления, доступа к элементам и определения размера.
@@ -36,6 +37,7 @@ public class MyArrayList<E> {
      * @return элемент, который был удален из списка
      * @throws IndexOutOfBoundsException если индекс выходит за пределы диапазона (index < 0 || index >= size)
      */
+    @SuppressWarnings("unchecked")
     public E remove(int index) {
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
@@ -60,6 +62,7 @@ public class MyArrayList<E> {
      * @return элемент в указанной позиции в этом списке
      * @throws IndexOutOfBoundsException если индекс выходит за пределы диапазона (index < 0 || index >= size)
      */
+    @SuppressWarnings("unchecked")
     public E get(int index) {
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
@@ -75,6 +78,7 @@ public class MyArrayList<E> {
      * @return элемент, ранее находившийся в указанной позиции
      * @throws IndexOutOfBoundsException если индекс выходит за пределы диапазона (index < 0 || index >= size)
      */
+    @SuppressWarnings("unchecked")
     public E set(int index, E element) {
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
@@ -107,12 +111,12 @@ public class MyArrayList<E> {
                 newCapacity = minCapacity;
             }
             Object[] newElements = new Object[newCapacity];
-            for (int i = 0; i < size; i++) {
-                newElements[i] = elements[i];
-            }
+            // Используем System.arraycopy для копирования элементов
+            System.arraycopy(elements, 0, newElements, 0, size);
             elements = newElements;
         }
     }
+
     /**
      * Переопределение метода toString для класса MyArrayList.
      * Этот метод возвращает строковое представление списка, содержащего все элементы списка.
@@ -130,6 +134,7 @@ public class MyArrayList<E> {
         // Проходим по всем элементам списка
         for (int i = 0; i < size; i++) {
             // Добавляем элемент в строку
+
             sb.append(elements[i]);
 
             // Если это не последний элемент, добавляем запятую и пробел
@@ -145,6 +150,15 @@ public class MyArrayList<E> {
         return sb.toString();
     }
 
+    /**
+     * Сортирует список по возрастанию, если элементы реализуют интерфейс Comparable.
+     *
+     *
+     */
+    @SuppressWarnings("unchecked")
+    public void quickSortComparable() {
+        QuickSort.quickSort(this, (Comparator<? super E>) Comparator.naturalOrder());
+    }
 }
 
 
